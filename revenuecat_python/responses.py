@@ -21,3 +21,15 @@ class RevenueCatError(Exception):
             self._message,
             self.http_status
         )
+
+
+class RevenueCatResponse:
+    def __init__(
+            self,
+            http_status=None,
+            json_body=None,
+            headers=None,
+    ):
+        self.http_status = http_status
+        self.json_body = json_body
+        self.headers = headers or {}
