@@ -17,18 +17,15 @@ class RevenueCatError(Exception):
         return self._message or "<empty message>"
 
     def __repr__(self):
-        return "(message={}, http_status={})".format(
-            self._message,
-            self.http_status
-        )
+        return "(message={}, http_status={})".format(self._message, self.http_status)
 
 
 class RevenueCatResponse:
     def __init__(
-            self,
-            http_status=None,
-            json_body=None,
-            headers=None,
+        self,
+        http_status=None,
+        json_body=None,
+        headers=None,
     ):
         self.http_status = http_status
         self.json_body = json_body

@@ -2,11 +2,11 @@ from enum import Enum
 
 
 class SubscriptionPlatform(Enum):
-    ios = 'ios'
-    android = 'android'
-    macos = 'macos'
-    uikitformac = 'uikitformac'
-    stripe = 'stripe'
+    ios = "ios"
+    android = "android"
+    macos = "macos"
+    uikitformac = "uikitformac"
+    stripe = "stripe"
 
 
 class AttributionNetworkCode(Enum):

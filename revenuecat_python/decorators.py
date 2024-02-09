@@ -10,6 +10,7 @@ def require_secret():
             if not self.secret_key:
                 raise RevenueCatError(message="Secret key required")
             return f(self, *args, **kwargs)
-        return decorated
-    return decorator
 
+        return decorated
+
+    return decorator
