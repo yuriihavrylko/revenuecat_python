@@ -7,7 +7,7 @@ A Python client library for RevenueCat REST API. Supports async/await.
 Install this library directly into an activated virtual environment:
 
 ```text
-$ pip install git+https://github.com/YuraHavrylko/revenuecat_python.git
+$ pip install git+https://github.com/yuriihavrylko/revenuecat_python.git
 ```
 
 ## Usage
@@ -38,7 +38,7 @@ async def main():
 
 ### Handling Response
 
-Responses from RevenueCat REST API are parsed as JSON and returned to you as an instance of RevenueCatResponse, 
+Responses from RevenueCat REST API are parsed as JSON and returned to you as an instance of RevenueCatResponse,
 which is just a simple class consisting of following attributes:
 
 * json_body: JSON parsed body of the response, as a Python dictionary.
@@ -62,7 +62,7 @@ except RevenueCatError as e: # An exception is raised if response.status_code !=
     print(e.json_body) # You can see the details of error by parsing original response
 ```
 
-## Full documentation 
+## Full documentation
 
 [https://docs.revenuecat.com/reference#basic](https://docs.revenuecat.com/reference#basic)
 

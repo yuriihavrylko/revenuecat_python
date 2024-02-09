@@ -15,7 +15,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/YuraHavrylko/revenuecat_python/issues.
+Report bugs at https://github.com/yuriihavrylko/revenuecat_python/issues.
 
 If you are reporting a bug, please include:
 
@@ -45,7 +45,7 @@ articles, and such.
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
-The best way to send feedback is to file an issue at https://github.com/YuraHavrylko/revenuecat_python/issues.
+The best way to send feedback is to file an issue at https://github.com/yuriihavrylko/revenuecat_python/issues.
 
 If you are proposing a feature:
 
@@ -62,7 +62,7 @@ Ready to contribute? Here's how to set up `revenuecat_python` for local developm
 1. Fork the `revenuecat_python` repo on GitHub.
 2. Clone your fork locally::
 
-    $ git clone https://github.com/YuraHavrylko/revenuecat_python.git
+    $ git clone https://github.com/yuriihavrylko/revenuecat_python.git
 
 3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
 
