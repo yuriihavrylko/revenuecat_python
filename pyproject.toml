@@ -15,7 +15,7 @@ httpx = ">=0.20.0,<0.27.0"
 attrs = ">=21.3.0"
 python-dateutil = "^2.8.0"
 
-[tool.poetry.group.dev.dependencies]
+[tool.poetry.dev-dependencies]
 pre-commit = "3.5.0"
 
 [build-system]

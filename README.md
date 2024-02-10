@@ -4,18 +4,24 @@ A client library for accessing RevenueCat API v1.
 
 Supports async/await.
 
-Generated with awersome [openapi-python-client](https://pypi.org/project/openapi-python-client/)
+Generated with awesome [openapi-python-client](https://pypi.org/project/openapi-python-client/) from [RevenueCat OpenAPI spec v1](https://revenuecat.com/docs/redocusaurus/plugin-redoc-1.yaml)
 
 ## Installation
 
 Install this library directly into an activated virtual environment:
 
 ```text
-$ pip install git+https://github.com/yuriihavrylko/revenuecat_python.git
+$ pip install revenuecat-client
 ```
 
 ## Usage
-First, create a client:
+Step 0.
+
+Navigate to your Revenuecat account and retrieve you API key.
+
+Step 1.
+
+Create a client:
 
 ```python
 from revenuecat_client import Client

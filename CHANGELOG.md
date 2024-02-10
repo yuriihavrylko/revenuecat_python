@@ -2,6 +2,14 @@
 History
 -------
 
+1.0.0 (2024-02-11)
+------------------
+
+* Migrate code to auto-generated from RevenueCat OpenAPI
+* Remove deprecated files, clean up repo, rewrite readme
+* Publish first version to PyPI
+
+
 0.3.0 (2024-02-09)
 ------------------
 
