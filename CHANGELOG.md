@@ -1,20 +1,20 @@
-=======
+-------
 History
-=======
+-------
 
 0.3.0 (2024-02-09)
 ------------------
 
 * Added pre-commit hooks
 * Applied suggested refactoring
-* Changed repo url
+* Changed repository URL
 
 0.2.0 (2020-10-07)
 ------------------
 
 * Implemented all endpoints
 * Added async client
-* Changed http library
+* Changed HTTP library
 
 
 0.1.0 (2020-06-10)
