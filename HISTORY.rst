@@ -2,6 +2,13 @@
 History
 =======
 
+0.3.0 (2024-02-09)
+------------------
+
+* Added pre-commit hooks
+* Applied suggested refactoring
+* Changed repo url
+
 0.2.0 (2020-10-07)
 ------------------
 
