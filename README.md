@@ -1,6 +1,10 @@
-# revenuecat_python
+# revenuecat_client
 
-A Python client library for RevenueCat REST API. Supports async/await.
+A client library for accessing RevenueCat API v1.
+
+Supports async/await.
+
+Generated with awersome [openapi-python-client](https://pypi.org/project/openapi-python-client/)
 
 ## Installation
 
@@ -11,66 +15,131 @@ $ pip install git+https://github.com/yuriihavrylko/revenuecat_python.git
 ```
 
 ## Usage
-
-### Sync usage
-Every project should utilize logging, but for simple use cases, this requires a bit too much boilerplate. Instead of including all of this in your modules:
+First, create a client:
 
 ```python
-from revenuecat_python.client import RevenueCatClient
+from revenuecat_client import Client
 
-client = RevenueCatClient(api_key='...', secret_key='...')
-response = client.get_or_create_subscriber('...')
-print(response.json_body)
+client = Client(base_url="https://api.revenuecat.com/v1")
 ```
 
-### Async usage
-
-AsyncRevenueCatClient client and RevenueCatClient shares exactly the same interface, method signatures.
+If the endpoints you're going to hit require authentication, use `AuthenticatedClient` instead:
 
 ```python
-from revenuecat_python.client import AsyncRevenueCatClient
+from revenuecat_client import AuthenticatedClient
 
-async def main():
-    client = AsyncRevenueCatClient(api_key='...', secret_key='...')
-    response = await client.get_or_create_subscriber('...')
-    print(response.json_body)
+client = AuthenticatedClient(base_url="https://api.revenuecat.com/v1", token="SuperSecretToken")
 ```
 
-### Handling Response
-
-Responses from RevenueCat REST API are parsed as JSON and returned to you as an instance of RevenueCatResponse,
-which is just a simple class consisting of following attributes:
-
-* json_body: JSON parsed body of the response, as a Python dictionary.
-* http_status: HTTP status code of the response.
-* headers: Original httpx.Response object, in case you want to access more attributes.
-Sample code:
+Now call your endpoint and use your models:
 
 ```python
-from revenuecat_python.client import RevenueCatClient
-from revenuecat_python.responses import RevenueCatError
+from revenuecat_client.models import MyDataModel
+from revenuecat_client.api.my_tag import get_my_data_model
+from revenuecat_client.types import Response
 
-client = RevenueCatClient(...)
-
-try:
-    response = client.get_or_create_subscriber(...)
-    print(response.json_body) # JSON parsed response
-    print(response.http_status) # Status code of response
-    print(response.headers) # Response http headers
-except RevenueCatError as e: # An exception is raised if response.status_code != 201 or 200
-    print(e) # Error message from REST server
-    print(e.json_body) # You can see the details of error by parsing original response
+with client as client:
+    my_data: MyDataModel = get_my_data_model.sync(client=client)
+    # or if you need more info (e.g. status_code)
+    response: Response[MyDataModel] = get_my_data_model.sync_detailed(client=client)
 ```
 
-## Full documentation
+Or do the same thing with an async version:
 
-[https://docs.revenuecat.com/reference#basic](https://docs.revenuecat.com/reference#basic)
+```python
+from revenuecat_client.models import MyDataModel
+from revenuecat_client.api.my_tag import get_my_data_model
+from revenuecat_client.types import Response
 
-## TODO
+async with client as client:
+    my_data: MyDataModel = await get_my_data_model.asyncio(client=client)
+    response: Response[MyDataModel] = await get_my_data_model.asyncio_detailed(client=client)
+```
 
-* Add tests, integrate travis-ci
-* Deploy to PyPi
-* Create docs and push to readthedocs
+By default, when you're calling an HTTPS API it will attempt to verify that SSL is working correctly. Using certificate verification is highly recommended most of the time, but sometimes you may need to authenticate to a server (especially an internal server) using a custom certificate bundle.
+
+```python
+client = AuthenticatedClient(
+    base_url="https://api.revenuecat.com/v1",
+    token="SuperSecretToken",
+    verify_ssl="/path/to/certificate_bundle.pem",
+)
+```
+
+You can also disable certificate validation altogether, but beware that **this is a security risk**.
+
+```python
+client = AuthenticatedClient(
+    base_url="https://api.revenuecat.com/v1",
+    token="SuperSecretToken",
+    verify_ssl=False
+)
+```
+
+Things to know:
+1. Every path/method combo becomes a Python module with four functions:
+    1. `sync`: Blocking request that returns parsed data (if successful) or `None`
+    1. `sync_detailed`: Blocking request that always returns a `Request`, optionally with `parsed` set if the request was successful.
+    1. `asyncio`: Like `sync` but async instead of blocking
+    1. `asyncio_detailed`: Like `sync_detailed` but async instead of blocking
+
+1. All path/query params, and bodies become method arguments.
+1. If your endpoint had any tags on it, the first tag will be used as a module name for the function (my_tag above)
+1. Any endpoint which did not have a tag will be in `revenuecat_client.api.default`
+
+## Advanced customizations
+
+There are more settings on the generated `Client` class which let you control more runtime behavior, check out the docstring on that class for more info. You can also customize the underlying `httpx.Client` or `httpx.AsyncClient` (depending on your use-case):
+
+```python
+from revenuecat_client import Client
+
+def log_request(request):
+    print(f"Request event hook: {request.method} {request.url} - Waiting for response")
+
+def log_response(response):
+    request = response.request
+    print(f"Response event hook: {request.method} {request.url} - Status {response.status_code}")
+
+client = Client(
+    base_url="https://api.revenuecat.com/v1",
+    httpx_args={"event_hooks": {"request": [log_request], "response": [log_response]}},
+)
+
+# Or get the underlying httpx client to modify directly with client.get_httpx_client() or client.get_async_httpx_client()
+```
+
+You can even set the httpx client directly, but beware that this will override any existing settings (e.g., base_url):
+
+```python
+import httpx
+from revenuecat_client import Client
+
+client = Client(
+    base_url="https://api.revenuecat.com/v1",
+)
+# Note that base_url needs to be re-set, as would any shared cookies, headers, etc.
+client.set_httpx_client(httpx.Client(base_url="https://api.revenuecat.com/v1", proxies="http://localhost:8030"))
+```
+
+## Building / publishing this package
+This project uses [Poetry](https://python-poetry.org/) to manage dependencies  and packaging.  Here are the basics:
+1. Update the metadata in pyproject.toml (e.g. authors, version)
+1. If you're using a private repository, configure it with Poetry
+    1. `poetry config repositories.<your-repository-name> <url-to-your-repository>`
+    1. `poetry config http-basic.<your-repository-name> <username> <password>`
+1. Publish the client with `poetry publish --build -r <your-repository-name>` or, if for public PyPI, just `poetry publish --build`
+
+If you want to install this client into another project without publishing it (e.g. for development) then:
+1. If that project **is using Poetry**, you can simply do `poetry add <path-to-this-client>` from that project
+1. If that project is not using Poetry:
+    1. Build a wheel with `poetry build -f wheel`
+    1. Install that wheel from the other project `pip install <path-to-wheel>`
+
+## REST API documentation
+
+[https://www.revenuecat.com/docs/api-v1-spec](https://www.revenuecat.com/docs/api-v1-spec)
+
 
 ## License
 
