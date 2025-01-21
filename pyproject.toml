@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "revenuecat-client"
-version = "1.0.0"
-description = "A client library for accessing RevenueCat API v1"
+version = "2.0.0"
+description = "A client library for accessing RevenueCat API v2"
 authors = ["Yurii Havrylko"]
 readme = "README.md"
 packages = [
@@ -21,3 +21,6 @@ pre-commit = "3.5.0"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.bandit]
+skips = ["B110"]
