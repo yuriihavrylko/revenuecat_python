@@ -1,6 +1,7 @@
 # revenuecat_client
 
 A client library for accessing RevenueCat API v1.
+For API version 2, see branch [apiv2](https://github.com/yuriihavrylko/revenuecat_python/tree/apiv2).
 
 Supports async/await.
 
@@ -10,7 +11,15 @@ Generated with awesome [openapi-python-client](https://pypi.org/project/openapi-
 
 Install this library directly into an activated virtual environment:
 
+API v1
 ```text
+$ pip install revenuecat-client==1.0.0
+```
+
+API v2
+```text
+$ pip install revenuecat-client==2.0.0
+$ // or
 $ pip install revenuecat-client
 ```
 
