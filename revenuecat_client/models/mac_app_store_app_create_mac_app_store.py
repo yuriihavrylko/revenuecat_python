@@ -1,0 +1,70 @@
+from typing import Any, Dict, List, Type, TypeVar, Union
+
+from attrs import define as _attrs_define
+from attrs import field as _attrs_field
+
+from ..types import UNSET, Unset
+
+T = TypeVar("T", bound="MacAppStoreAppCreateMacAppStore")
+
+
+@_attrs_define
+class MacAppStoreAppCreateMacAppStore:
+    """Mac App Store type details. Should only be used when type is mac_app_store.
+
+    Attributes:
+        bundle_id (str): The bundle ID of the app
+        shared_secret (Union[Unset, str]): The shared secret of the app
+    """
+
+    bundle_id: str
+    shared_secret: Union[Unset, str] = UNSET
+    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+    def to_dict(self) -> Dict[str, Any]:
+        bundle_id = self.bundle_id
+
+        shared_secret = self.shared_secret
+
+        field_dict: Dict[str, Any] = {}
+        field_dict.update(self.additional_properties)
+        field_dict.update(
+            {
+                "bundle_id": bundle_id,
+            }
+        )
+        if shared_secret is not UNSET:
+            field_dict["shared_secret"] = shared_secret
+
+        return field_dict
+
+    @classmethod
+    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        d = src_dict.copy()
+        bundle_id = d.pop("bundle_id")
+
+        shared_secret = d.pop("shared_secret", UNSET)
+
+        mac_app_store_app_create_mac_app_store = cls(
+            bundle_id=bundle_id,
+            shared_secret=shared_secret,
+        )
+
+        mac_app_store_app_create_mac_app_store.additional_properties = d
+        return mac_app_store_app_create_mac_app_store
+
+    @property
+    def additional_keys(self) -> List[str]:
+        return list(self.additional_properties.keys())
+
+    def __getitem__(self, key: str) -> Any:
+        return self.additional_properties[key]
+
+    def __setitem__(self, key: str, value: Any) -> None:
+        self.additional_properties[key] = value
+
+    def __delitem__(self, key: str) -> None:
+        del self.additional_properties[key]
+
+    def __contains__(self, key: str) -> bool:
+        return key in self.additional_properties

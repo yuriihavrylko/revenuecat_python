@@ -1,4 +1,4 @@
-""" A client library for accessing RevenueCat API v1 """
+"""A client library for accessing Developer API"""
 
 from .client import AuthenticatedClient, Client
 
