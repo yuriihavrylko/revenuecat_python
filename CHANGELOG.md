@@ -2,6 +2,14 @@
 History
 -------
 
+2.0.0 (2025-01-21)
+------------------
+
+* Migrate v1 client code to auto-generated from RevenueCat OpenAPI v2
+* Update readme
+* Publish version to PyPI
+
+
 1.0.0 (2024-02-11)
 ------------------
 
