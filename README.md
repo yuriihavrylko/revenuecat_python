@@ -1,10 +1,10 @@
 # revenuecat_client
 
-A client library for accessing RevenueCat API v1.
+A client library for accessing RevenueCat API v2.
 
 Supports async/await.
 
-Generated with awesome [openapi-python-client](https://pypi.org/project/openapi-python-client/) from [RevenueCat OpenAPI spec v1](https://revenuecat.com/docs/redocusaurus/plugin-redoc-1.yaml)
+Generated with awesome [openapi-python-client](https://pypi.org/project/openapi-python-client/) from [RevenueCat OpenAPI spec v2](https://www.revenuecat.com/docs/redocusaurus/plugin-redoc-0.yaml)
 
 ## Installation
 
@@ -26,7 +26,7 @@ Create a client:
 ```python
 from revenuecat_client import Client
 
-client = Client(base_url="https://api.revenuecat.com/v1")
+client = Client(base_url="https://api.revenuecat.com/v2")
 ```
 
 If the endpoints you're going to hit require authentication, use `AuthenticatedClient` instead:
@@ -34,7 +34,7 @@ If the endpoints you're going to hit require authentication, use `AuthenticatedC
 ```python
 from revenuecat_client import AuthenticatedClient
 
-client = AuthenticatedClient(base_url="https://api.revenuecat.com/v1", token="SuperSecretToken")
+client = AuthenticatedClient(base_url="https://api.revenuecat.com/v2", token="SuperSecretToken")
 ```
 
 Now call your endpoint and use your models:
@@ -66,7 +66,7 @@ By default, when you're calling an HTTPS API it will attempt to verify that SSL 
 
 ```python
 client = AuthenticatedClient(
-    base_url="https://api.revenuecat.com/v1",
+    base_url="https://api.revenuecat.com/v2",
     token="SuperSecretToken",
     verify_ssl="/path/to/certificate_bundle.pem",
 )
@@ -76,7 +76,7 @@ You can also disable certificate validation altogether, but beware that **this i
 
 ```python
 client = AuthenticatedClient(
-    base_url="https://api.revenuecat.com/v1",
+    base_url="https://api.revenuecat.com/v2",
     token="SuperSecretToken",
     verify_ssl=False
 )
@@ -108,7 +108,7 @@ def log_response(response):
     print(f"Response event hook: {request.method} {request.url} - Status {response.status_code}")
 
 client = Client(
-    base_url="https://api.revenuecat.com/v1",
+    base_url="https://api.revenuecat.com/v2",
     httpx_args={"event_hooks": {"request": [log_request], "response": [log_response]}},
 )
 
@@ -122,10 +122,10 @@ import httpx
 from revenuecat_client import Client
 
 client = Client(
-    base_url="https://api.revenuecat.com/v1",
+    base_url="https://api.revenuecat.com/v2",
 )
 # Note that base_url needs to be re-set, as would any shared cookies, headers, etc.
-client.set_httpx_client(httpx.Client(base_url="https://api.revenuecat.com/v1", proxies="http://localhost:8030"))
+client.set_httpx_client(httpx.Client(base_url="https://api.revenuecat.com/v2", proxies="http://localhost:8030"))
 ```
 
 ## Building / publishing this package
@@ -144,7 +144,7 @@ If you want to install this client into another project without publishing it (e
 
 ## REST API documentation
 
-[https://www.revenuecat.com/docs/api-v1-spec](https://www.revenuecat.com/docs/api-v1-spec)
+[https://www.revenuecat.com/docs/api-v2](https://www.revenuecat.com/docs/api-v2)
 
 
 ## License
